@@ -46,8 +46,16 @@ function App() {
       <main className="App-main">
         {ppList &&
           ppList.map(
-            ({ ppName, subscrFee, speed, trafficVolume, selected }) => (
-              <PPCard />
+            ({ ppName, subscrFee, speed, trafficVolume, selected, width }) => (
+              <PPCard
+                ppName={ppName}
+                // key={ppName}
+                trafficVolume={trafficVolume}
+                speed={speed}
+                subscrFee={subscrFee}
+                selected={selected}
+                width={width}
+              />
             )
           )}
       </main>

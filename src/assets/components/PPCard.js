@@ -1,38 +1,44 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-// import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-// import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-// import styles from "../styles/PPCard.scss";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
+const boxStyle = {
+  selected: {
+    mt: 0.5,
+    mx: -0.5,
+    boxShadow: 24,
+    minWidth: 400,
+    height: 210,
+    zIndex: "tooltip",
+  },
+  notSelected: {
+    mt: 1,
+    boxShadow: 1,
+    minWidth: 275,
+    height: 200,
+  },
+};
 
-export default function PPCard() {
+export default function PPCard(props) {
+  let isSelected = "notSelected";
+  if (props.selected) {
+    isSelected = "selected";
+  }
   return (
-    <Card sx={{ minWidth: 275 }} variant="outlined">
+    <Card sx={boxStyle[isSelected]} variant="outlined">
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
-        </Typography>
         <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
+          {props.ppName}
+        </Typography>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          {props.subscrFee} руб/мес
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+          {props.speed} Мбит/сек
         </Typography>
         <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          Объем включенного трафика {props.trafficVolume}
         </Typography>
       </CardContent>
     </Card>
