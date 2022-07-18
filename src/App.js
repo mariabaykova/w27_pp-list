@@ -1,4 +1,4 @@
-// import logo from "./logo.svg";
+import * as React from "react";
 import "./App.css";
 import PPCard from "./assets/components/PPCard";
 
@@ -38,6 +38,18 @@ const ppList = [
 ];
 
 function App() {
+  // Мы будем хранить id выбранной карточки во внутреннем состоянии этого компонента
+  // это состояние, которое мы подняли из PPCard
+  // то есть если мы кликнули на карту с иденттификатором тарифа id=1, то храним
+  // {
+  //   ppId: '1'
+  // }
+  const [checkedPP, setCheckedPP] = React.useState({ ppId: "0" });
+  function handleCardClick(ppId) {
+    console.log("handleCardClick ppId " + ppId.ppId);
+    setCheckedPP(ppId);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -46,15 +58,26 @@ function App() {
       <main className="App-main">
         {ppList &&
           ppList.map(
-            ({ ppName, subscrFee, speed, trafficVolume, selected, width }) => (
+            ({
+              ppName,
+              subscrFee,
+              speed,
+              trafficVolume,
+              // selected,
+              width,
+              ppId,
+            }) => (
               <PPCard
+                // onClick={() => console.log("click")}
                 ppName={ppName}
-                // key={ppName}
+                key={ppId}
                 trafficVolume={trafficVolume}
                 speed={speed}
                 subscrFee={subscrFee}
-                selected={selected}
+                isSelected={checkedPP}
                 width={width}
+                ppId={ppId}
+                onCardClick={handleCardClick}
               />
             )
           )}
