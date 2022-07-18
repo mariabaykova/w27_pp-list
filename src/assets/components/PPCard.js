@@ -11,22 +11,34 @@ const boxStyle = {
     minWidth: 400,
     height: 210,
     zIndex: "tooltip",
+    cursor: "pointer",
   },
   notSelected: {
     mt: 1,
     boxShadow: 1,
     minWidth: 275,
     height: 200,
+    cursor: "pointer",
   },
 };
 
 export default function PPCard(props) {
-  let isSelected = "notSelected";
-  if (props.selected) {
-    isSelected = "selected";
+  // вместо состояния isSelected нужно использовать проп props.isSelected.
+  // когда мы хотим изменить состояние карточки, мы должны вызывать props.onCardClick(), который получен от родительского компонента
+
+  function handleCardClick() {
+    props.onCardClick({ ppId: props.ppId });
   }
+
+  const styleSelected =
+    props.isSelected.ppId === props.ppId ? "selected" : "notSelected";
+
   return (
-    <Card sx={boxStyle[isSelected]} variant="outlined">
+    <Card
+      sx={boxStyle[styleSelected]}
+      variant="outlined"
+      onClick={handleCardClick}
+    >
       <CardContent>
         <Typography variant="h5" component="div">
           {props.ppName}
